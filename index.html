@@ -1,1 +1,39 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MATHARN - Control de Asistencia</title>
+  <meta name="description" content="Control de asistencia MATHARN con GPS">
+</head>
+
+<body>
+  <p style="font-family:Arial;text-align:center;margin-top:60px;">
+    Conectando con el sistema de asistencia MATHARN...
+  </p>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3CYp2doUvCX0w8svTyenGo5TmYb_2hA-DFaBeFhEA7ALp_8QEK1L2m51XpzM0dNZf/exec";
+
+    const parametros = new URLSearchParams(window.location.search);
+    const area = (parametros.get("area") || "").trim().toUpperCase();
+
+    if (area !== "TALLER" && area !== "PLANTA") {
+      document.body.innerHTML = `
+        <h2 style="font-family:Arial;text-align:center;margin-top:60px;">
+          QR NO VÁLIDO
+        </h2>
+        <p style="font-family:Arial;text-align:center;">
+          Escanea el QR oficial de TALLER o PLANTA.
+        </p>
+      `;
+    } else {
+      window.location.replace(
+        SCRIPT_URL + "?area=" + encodeURIComponent(area)
+      );
+    }
+  </script>
+</body>
+</html>
+
